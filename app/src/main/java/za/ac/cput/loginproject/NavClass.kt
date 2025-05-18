@@ -1,14 +1,13 @@
 package za.ac.cput.loginproject
 
+//Navigation Imports
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-//Navigation Imports
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import za.ac.cput.loginproject.ui.theme.LoginProjectTheme
 
