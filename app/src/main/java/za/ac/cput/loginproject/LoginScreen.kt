@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -60,6 +61,7 @@ fun LoginScreen(navController: NavHostController,userDao: UserDao) {
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
+            visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -71,7 +73,15 @@ fun LoginScreen(navController: NavHostController,userDao: UserDao) {
         ) {
             Button(
                 onClick = {
-                    navController.navigate("login")
+                    scope.launch { // Launch a coroutine
+                        val loggedIn = loginUser(email, password, userDao) // Call loginUser
+                        if (loggedIn) {
+                            navController.navigate("display") // Navigate on successful login
+                        } else {
+                            // Optionally show an error message to the user
+                            println("Login failed")
+                        }
+                    }
                           },
                 modifier = Modifier.weight(1f)
             ) {
@@ -81,29 +91,12 @@ fun LoginScreen(navController: NavHostController,userDao: UserDao) {
             Spacer(modifier = Modifier.width(8.dp))
 
             Button(
-                onClick = {  scope.launch { // Launch a coroutine
-                    val loggedIn = loginUser(email, password, userDao) // Call loginUser
-                    if (loggedIn) {
-                        println("Login successful")
-                        navController.navigate("display") // Navigate on successful login
-                    } else {
-                        // Optionally show an error message to the user
-                        println("Login failed")
-                    }
-                } },
+                onClick = {  navController.navigate("register")},
                 modifier = Modifier.weight(1f)
             ) {
                 Text("Register")
             }
 
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Button(
-                onClick = {navController.navigate("display") },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("Display")
-            }
         }
     }
 }

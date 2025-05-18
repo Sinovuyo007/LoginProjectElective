@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -60,8 +61,8 @@ fun DisplayScreen(navController: NavHostController,userDao: UserDao) {
             } else {
                 LazyColumn {
                     items(users) { user ->
-                        Text("Email: ${user.email} \nPassword: ${user.password}")
-                        Divider()
+                        Text("User: ${user.toString()}")
+                        HorizontalDivider()
                     }
                 }
             }
@@ -86,14 +87,6 @@ fun DisplayScreen(navController: NavHostController,userDao: UserDao) {
                         Text("Register")
                     }
 
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Button(
-                        onClick = { navController.navigate("display") },
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text("Display")
-                    }
                 }
             }
         }

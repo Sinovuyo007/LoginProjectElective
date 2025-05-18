@@ -69,12 +69,7 @@ fun RegisterScreen(navController: NavHostController,userDao: UserDao) {
             modifier = Modifier.fillMaxWidth(),
         ) {
             Button(
-                onClick = { scope.launch {
-                    registerUser(email, password, userDao) // Call registerUser
-                    navController.navigate("login") // Navigate to login screen after registration
-                    // Optionally show a success message
-                    println("REGISTERED successfully")
-                }},
+                onClick = { navController.navigate("login")},
                 modifier = Modifier.weight(1f)
             ) {
                 Text("Login")
@@ -83,19 +78,14 @@ fun RegisterScreen(navController: NavHostController,userDao: UserDao) {
             Spacer(modifier = Modifier.width(8.dp))
 
             Button(
-                onClick = { navController.navigate("register") },
+                onClick = { scope.launch {
+                    registerUser(email, password, userDao) // Call registerUser
+                    // Optionally show a success message
+                    println("REGISTERED successfully")
+                }},
                 modifier = Modifier.weight(1f)
             ) {
                 Text("Register")
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Button(
-                onClick = {navController.navigate("display") },
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("Display")
             }
         }
     }

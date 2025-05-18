@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                 Room.databaseBuilder(
                     context.applicationContext,
                     UserDatabase::class.java,
-                    "user_database"
+                    "Users"
                 ).build()
             }
             val userDao = remember { database.userDao() }
