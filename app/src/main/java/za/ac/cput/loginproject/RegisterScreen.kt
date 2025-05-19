@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
+import android.util.Patterns
 
 @Composable
 fun RegisterScreen(navController: NavHostController,userDao: UserDao) {
@@ -76,9 +77,17 @@ fun RegisterScreen(navController: NavHostController,userDao: UserDao) {
 
             Button(
                 onClick = { scope.launch {
-                    registerUser(email, password, userDao) // Call registerUser
-                    // Optionally show a success message
-                    println("REGISTERED successfully")
+                    if(email.isEmpty() ||
+                        password.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
+                    {
+                        println("Please fill in all fields")
+                    }else {
+                        //deleteAllUsers(userDao)
+                        registerUser(email, password, userDao) // Call registerUser
+                        // Optionally show a success message
+                        println("REGISTERED successfully")
+                        navController.navigate("login")
+                    }
                 }},
                 modifier = Modifier.weight(1f)
             ) {
@@ -86,6 +95,9 @@ fun RegisterScreen(navController: NavHostController,userDao: UserDao) {
             }
         }
     }
+}
+suspend fun deleteAllUsers(userDao: UserDao){
+    userDao.deleteAllUsers()
 }
 suspend fun registerUser(email: String, password: String, userDao: UserDao) {
     val newUser = User(email = email, password = password)
