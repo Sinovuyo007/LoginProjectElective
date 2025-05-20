@@ -11,6 +11,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import za.ac.cput.loginproject.ui.theme.LoginProjectTheme
+//I Sinovuyo mathungana 230143725
+//I Alvaro Ferrraz 220075018
+//I Aristide Izabkora 220345821
+// hereby declare that we have done this project on our own.  Any code obtained somewhere will be reference using some URL.
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
